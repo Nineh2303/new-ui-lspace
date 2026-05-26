@@ -44,7 +44,7 @@
         </button>
         <div class="flex items-center gap-3 cursor-pointer" @click="appStore.logout()">
           <div class="text-right hidden sm:block">
-            <div class="text-sm font-bold text-slate-800 leading-tight">Xin chào, {{ appStore.username }}</div>
+            <div class="text-sm font-bold text-slate-800 leading-tight">Xin chào, {{ appStore.given_name }}</div>
             <div class="text-xs font-semibold text-yellow-500">Thoát</div>
           </div>
           <div class="w-9 h-9 rounded-full overflow-hidden border border-blue-600/20 flex items-center justify-center text-blue-600 bg-blue-50">
@@ -74,7 +74,7 @@ import {encryptPayload} from "@/src/services/crypto.ts";
 const appStore = useAppStore();
 
 const callback = (response) => {
-  localStorage.setItem('google_authentication', encryptPayload(JSON.stringify(response)));
+  // localStorage.setItem('google_authentication', encryptPayload(JSON.stringify(response)));
   const loginRequest: IGoogleLoginPayload ={
     credential: response.credential,
     clientId: response.clientId,

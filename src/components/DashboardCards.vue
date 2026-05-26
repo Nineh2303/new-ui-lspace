@@ -22,9 +22,7 @@ const updateDate = () => {
 }
 
 onMounted(() => {
-
   updateDate()
-
   intervalId = window.setInterval(() => {
     updateDate()
   }, 1000)
@@ -44,7 +42,7 @@ onUnmounted(() => {
     
     <div class="relative z-10 flex-1 w-full text-center md:text-left">
       <p class="text-blue-200 font-semibold tracking-wider text-sm uppercase mb-2">{{currentDate}}</p>
-      <h1 class="text-4xl md:text-5xl font-black mb-4 tracking-tight drop-shadow-sm">Chào buổi sáng, {{appStore.username}}!  👋</h1>
+      <h1 class="text-4xl md:text-5xl font-black mb-4 tracking-tight drop-shadow-sm">Chào buổi sáng, {{appStore.username}}!👋</h1>
       <p class="text-blue-100/90 text-lg md:text-xl max-w-2xl font-medium leading-relaxed drop-shadow-sm">
         Tiếp tục hành trình chinh phục tiếng Anh của bạn. Hôm nay là một ngày tuyệt vời để luyện tập thêm vài bài Listening và Reading.
       </p>

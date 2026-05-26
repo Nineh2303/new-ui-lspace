@@ -29,16 +29,11 @@ const filteredVideos = computed(() => {
 });
 
 onMounted(async () => {
-  const authPayload = JSON.parse(decryptPayload(localStorage.getItem('google_authentication')));
-  console.log(authPayload);
+  const authPayload = JSON.parse(decryptPayload(localStorage.getItem('access_token')));
   if (authPayload) {
-    appStore.login({
-      credential: authPayload.credential,
-      clientId: authPayload.clientId,
-    })
-    isLoading.value = false;
+    appStore.getUser();
   }
-})
+  })
 </script>
 
 <template>

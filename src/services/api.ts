@@ -27,6 +27,7 @@ export const api = {
     getAuthConfig: () => httpClient.get<{
         googleClientId: string | null
     }>('/api/users/auth-config').then(res => res.data),
+    getCurrentUser: () => httpClient.post('/api/users/current-user',{}).then(res => res.data),
     getUsers: () => httpClient.get<IUser[]>('/api/users').then(res => res.data),
     getUserById: (id: string) => httpClient.get<IUser>(`/api/users/${id}`).then(res => res.data),
     createUser: (data: Partial<IUser>) => httpClient.post<IUser>('/api/users', data).then(res => res.data),
