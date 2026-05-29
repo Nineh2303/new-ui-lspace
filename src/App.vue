@@ -8,13 +8,12 @@ import FilterSidebar from './components/FilterSidebar.vue';
 import VideoGrid from './components/VideoGrid.vue';
 import type {IVideoItem} from './data/Dashboard';
 import {videosData as fallbackVideos} from './data/Dashboard';
-import {decryptPayload} from "@/src/services/crypto.ts";
 import GlobalLoading from "@/src/components/GlobalLoading.vue";
 
 const appStore = useAppStore();
 
 // Sidebar State
-const isSidebarOpen = ref(true);
+const isSidebarOpen = ref(false);
 
 // Filter States
 const currentCategory = ref('Tất cả');
@@ -29,7 +28,7 @@ const filteredVideos = computed(() => {
 });
 
 onMounted(async () => {
-  const authPayload = JSON.parse(decryptPayload(localStorage.getItem('access_token')));
+  const authPayload = localStorage.getItem('access_token');
   if (authPayload) {
     appStore.getUser();
   }
@@ -37,17 +36,19 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="flex h-screen bg-[#F8FAFC] font-sans text-slate-800 overflow-hidden">
+  <div class="flex flex-col h-full bg-[#F8FAFC] font-sans text-slate-800 overflow-hidden">
+    <div class="w-full fixed z-20">
+      <TopHeader @toggle-sidebar="isSidebarOpen = !isSidebarOpen"/>
+    </div>
 
     <!-- Sidebar Left (Full Height) -->
-    <LeftSidebar :isOpen="isSidebarOpen"/>
 
-    <div class="flex flex-col flex-1 overflow-hidden">
+    <div class="flex flex-col flex-1 overflow-hidden pt-16">
+    <LeftSidebar :isOpen="isSidebarOpen"/>
       <!-- Header Toàn cục -->
-      <TopHeader @toggle-sidebar="isSidebarOpen = !isSidebarOpen"/>
 
       <!-- Phần Chính -->
-      <main class="flex-1 overflow-y-auto p-6 md:p-8 custom-scrollbar relative transition-all duration-300"
+      <main class="flex-1 overflow-y-auto pt-16 md:p-8 custom-scrollbar relative transition-all duration-300"
             :class="[isSidebarOpen ? 'lg:pl-64' : 'lg:pl-20']">
         <!-- Overlay on mobile when sidebar is open -->
         <div v-if="isSidebarOpen"
@@ -56,8 +57,10 @@ onMounted(async () => {
 
         <div class="w-full max-w-full px-2 md:px-4 mx-auto relative z-10">
 
-          <!-- Welcome Banner -->
-          <DashboardCards v-if="appStore.isAuthenticated"/>
+          <div>
+            <!-- Welcome Banner -->
+            <DashboardCards v-if="appStore.isAuthenticated"/>
+          </div>
 
           <!-- Phần lưới công việc và bộ lọc -->
           <div class="flex flex-col lg:flex-row gap-6 mt-6">
@@ -82,10 +85,10 @@ onMounted(async () => {
               <h3 class="text-2xl font-black text-slate-800 mb-2">Đăng nhập để xem Video</h3>
               <p class="text-slate-500 mb-8 max-w-sm font-medium">Bạn cần đăng nhập để mở khóa hàng ngàn video bài giảng
                 chất lượng cao từ các chuyên gia.</p>
-              <button @click="appStore.login()"
-                      class="px-8 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg shadow-blue-600/30 transition-all hover:scale-105 active:scale-95">
-                Đăng nhập ngay
-              </button>
+<!--              <button @click="appStore.login()"-->
+<!--                      class="px-8 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg shadow-blue-600/30 transition-all hover:scale-105 active:scale-95">-->
+<!--                Đăng nhập ngay-->
+<!--              </button>-->
             </div>
           </div>
 

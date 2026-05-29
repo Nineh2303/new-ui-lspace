@@ -1,6 +1,6 @@
 
 <template>
-  <header class="h-16 bg-white border-b border-slate-200 flex items-center shrink-0 shadow-sm z-50 px-4 md:px-6 relative justify-between">
+  <header class="fixed w-full h-16 bg-white border-b border-slate-200 flex items-center shrink-0 shadow-sm z-50 px-4 md:px-6 relative justify-between">
     <!-- Left Section: Toggle & Logo -->
     <div class="flex items-center gap-3 shrink-0">
       <!-- Hamburger Toggle (Always visible) -->

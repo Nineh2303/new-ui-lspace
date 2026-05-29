@@ -9,7 +9,7 @@ defineProps<{
 
 <template>
   <aside 
-    class="bg-white border-r border-slate-200 flex flex-col overflow-y-auto overflow-x-hidden custom-scrollbar z-40 transition-all duration-300 fixed h-[calc(100vh-64px)] top-16 group shadow-lg lg:shadow-none"
+    class="h-full  overflow-scroll bg-white border-r border-slate-200 flex flex-col overflow-y-auto overflow-x-hidden custom-scrollbar z-40 transition-all duration-300 fixed h-[calc(100vh-64px)] top-16 group shadow-lg lg:shadow-none"
     :class="[
       isOpen 
         ? 'translate-x-0 w-64' 

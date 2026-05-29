@@ -10,7 +10,7 @@ export const httpClient = axios.create({
 
 httpClient.interceptors.request.use((config) => {
     console.log(`Request to api ${config.url}:`, config.data);
-    const token = localStorage.getItem("token");
+    const token = decryptPayload(localStorage.getItem("access_token"));
     if (token && config.headers) {
         config.headers.Authorization = `Bearer ${token}`;
     }
