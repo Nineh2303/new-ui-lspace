@@ -5,6 +5,8 @@ import {IGoogleLoginPayload} from "@/src/interface/IGoogleLoginPayload.ts";
 import {IGoogleLoginResponse} from "@/src/interface/IGoogleLoginResponse.ts";
 import {ILeaderboardItem, videosData} from "@/src/data/Dashboard.ts";
 import {ApiResponse} from "@/src/interface/ApiResponse.ts";
+import {IRegisterUser} from "@/src/interface/IRegisterUser.ts";
+import {ISchoolItem} from "@/src/interface/ISchool.ts";
 
 // Automatically add JWT system token to the request headers when present
 httpClient.interceptors.request.use((config) => {
@@ -28,6 +30,7 @@ export const api = {
         googleClientId: string | null
     }>('/api/users/auth-config').then(res => res.data),
     getCurrentUser: () => httpClient.post('/api/users/current-user',{}).then(res => res.data),
+    register: (request: IRegisterUser) => httpClient.post('/api/users/register',request).then(res => res.data),
     getUsers: () => httpClient.get<IUser[]>('/api/users').then(res => res.data),
     getUserById: (id: string) => httpClient.get<IUser>(`/api/users/${id}`).then(res => res.data),
     createUser: (data: Partial<IUser>) => httpClient.post<IUser>('/api/users', data).then(res => res.data),
@@ -40,6 +43,7 @@ export const api = {
         httpClient.post<ApiResponse<IGoogleLoginResponse>>('/api/users/google-login', payload)
         .then(res => res.data),
 
+    getSchools: () => httpClient.post<ApiResponse<ISchoolItem[]>>('/api/schools',{}).then(res => res.data),
 
     // // Videos CRUD
     // getVideos: () => httpClient.get<IVideoItem[]>('/api/videos').then(res => res.data),

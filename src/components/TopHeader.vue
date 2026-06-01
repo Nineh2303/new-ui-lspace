@@ -9,7 +9,7 @@
       </button>
       
       <!-- Logo Area in Header -->
-      <a href="#" class="flex items-center gap-2">
+      <router-link to="/" class="flex items-center gap-2">
         <div class="relative w-8 h-8 shrink-0 flex items-center justify-center">
           <svg viewBox="0 0 100 100" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
             <path d="M 20 80 A 40 40 0 1 1 80 80" fill="none" stroke="#0033CC" stroke-width="8" stroke-linecap="round"/>
@@ -25,7 +25,7 @@
           <span class="text-[#FFC000]">LANG</span>
           <span class="text-[#0033CC]">SPACE</span>
         </div>
-      </a>
+      </router-link>
     </div>
     
     <!-- Center Links -->
@@ -54,33 +54,23 @@
         </div>
       </template>
       <template v-else>
-<!--        <button @click="authStore.login()" class="flex items-center gap-2 border border-slate-200 rounded-full px-4 py-1.5 text-sm font-semibold text-slate-600 hover:bg-slate-50 transition-colors">-->
-<!--          <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" class="w-4 h-4" />-->
-<!--          Đăng nhập-->
-<!--        </button>-->
-        <GoogleLogin :callback="callback" />
+          <router-link to="/login" class="border-2 text-white font-bold bg-blue-500 hover:bg-blue-400 w-40 h-10 rounded-lg flex items-center justify-center cursor-pointer">
+              Đăng nhập
+          </router-link>
+        <router-link to="/register" class="border-2 w-40 h-10 rounded-lg flex items-center justify-center">
+          Đăng ký
+        </router-link>
       </template>
     </div>
   </header>
 </template>
 <script setup lang="ts">
-import { Menu, Bell, User, ChevronRight } from 'lucide-vue-next';
-import { topNavLinks } from '../data/Header';
+import {Bell, ChevronRight, Menu, User} from 'lucide-vue-next';
+import {topNavLinks} from '../data/Header';
 import {useAppStore} from '../stores/auth';
-import {GoogleLogin}  from "vue3-google-login"
-import  {IGoogleLoginPayload} from "@/src/services/api.ts";
-import {encryptPayload} from "@/src/services/crypto.ts";
 
 const appStore = useAppStore();
 
-const callback = (response) => {
-  // localStorage.setItem('google_authentication', encryptPayload(JSON.stringify(response)));
-  const loginRequest: IGoogleLoginPayload ={
-    credential: response.credential,
-    clientId: response.clientId,
-  };
-  appStore.login(loginRequest)
 
-}
 defineEmits(['toggle-sidebar']);
 </script>

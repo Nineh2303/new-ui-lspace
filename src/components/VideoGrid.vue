@@ -72,7 +72,7 @@ const closeVideo = () => {
       <div class="absolute inset-0 bg-slate-900/90 backdrop-blur-sm" @click="closeVideo"></div>
 
       <!-- Modal Content -->
-      <div class="relative bg-black rounded-2xl w-full max-w-5xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-300 flex flex-col xl:flex-row">
+      <div class="relative bg-black rounded-2xl w-full max-w-450 shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-300 flex flex-col xl:flex-row">
 
         <!-- Close Button -->
         <button @click="closeVideo" class="absolute top-4 right-4 z-10 w-10 h-10 bg-black/50 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-colors">

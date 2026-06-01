@@ -4,6 +4,8 @@ import {ApiResponse} from "@/src/interface/ApiResponse.ts";
 import {IGoogleLoginPayload} from "@/src/interface/IGoogleLoginPayload.ts";
 import {IGetUserLogin, IGoogleLoginResponse} from "@/src/interface/IGoogleLoginResponse.ts";
 import {encryptPayload} from "@/src/services/crypto.ts";
+import {IRegisterUser} from "@/src/interface/IRegisterUser.ts";
+import {ISchoolItem} from "@/src/interface/ISchool.ts";
 
 export interface AppStateProps {
     username: string;
@@ -12,6 +14,7 @@ export interface AppStateProps {
     email: string;
     image: string;
     isLoading: boolean;
+    schools: ISchoolItem[]
     isAuthenticated: boolean;
 
 }
@@ -23,11 +26,25 @@ export const useAppStore = defineStore('appStore', {
         family_name: null,
         email: null,
         image: null,
+        schools: [],
         isLoading: false,
         isAuthenticated: false
     }),
-
+    getters:{
+        allSchools :(state) => state.schools
+    },
     actions: {
+        async register(request: IRegisterUser ): Promise<void> {
+            this.isLoading = true;
+            try {
+                await api.register( request );
+            } catch (e) {
+                console.error(e);
+            }finally {
+                this.isLoading = false;
+            }
+        },
+
         async login(request: IGoogleLoginPayload) {
             this.isLoading = true;
             try {
@@ -58,17 +75,13 @@ export const useAppStore = defineStore('appStore', {
             this.isLoading = false;
         },
 
-        async getUser() {
+        async getSchools() {
             this.isLoading = true;
             try {
-                const response = await api.getCurrentUser();
+                const response: ApiResponse<ISchoolItem[]> = await api.getSchools();
                 if (!response.isError) {
-                    const responseData: IGetUserLogin = response?.object
-                    this.email = responseData?.email;
-                    this.username = responseData?.username;
-                    this.given_name = responseData?.given_name;
-                    this.family_name = responseData?.family_name;
-                    this.image = responseData?.image;
+                    console.log("fof", response.object);
+                    this.schools=  response?.object
                     this.isAuthenticated = true;
                 }
             } catch (error) {
@@ -78,8 +91,8 @@ export const useAppStore = defineStore('appStore', {
             this.isLoading=false
             }
         }
-    }
 
+    }
 })
 
 
