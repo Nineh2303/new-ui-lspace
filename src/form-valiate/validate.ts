@@ -6,6 +6,7 @@ export const registerSchema = toTypedSchema(
         fullName: z
             .string()
             .min(3, 'Họ và tên tối thiểu 3 ký tự'),
+        userName: z.string().nonempty('Tên đăng nhập không được bỏ trống'),
         email: z.string().email('Bạn đang nhập email không đúng định dạng'),
         phoneNumber: z.string().length(10,"Số điện thoại phải là 10 kí tự"),
         schoolName: z.string(),

@@ -3,6 +3,7 @@ import {decryptPayload, encryptPayload} from "@/src/services/crypto.ts";
 
 export const httpClient = axios.create({
     baseURL: import.meta.env.VITE_SERVER_URL,
+    timeout: 10000,
     headers: {
         'Content-Type': 'application/json',
     },

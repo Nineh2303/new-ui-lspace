@@ -35,6 +35,17 @@
               </FormItem>
             </FormField>
 
+
+            <FormField v-slot="{ componentField }" name="userName">
+              <FormItem>
+                <FormLabel>Tên đăng nhập</FormLabel>
+                <FormControl>
+                  <Input placeholder="Nhập tên đăng nhập" v-bind="componentField"/>
+                </FormControl>
+                <FormMessage/>
+              </FormItem>
+            </FormField>
+
             <FormField v-slot="{ componentField }" name="email">
               <FormItem>
                 <FormLabel>Email</FormLabel>
@@ -71,7 +82,7 @@
                         <SelectItem
                             v-for="school in schoolFilterComputed"
                             :key="school.schoolCode"
-                            :value="school.schoolCode"
+                            :value="school.schoolName"
                             class="w-full h-[50px]"
                         >
                           {{ school.schoolName }}
@@ -156,10 +167,9 @@
 <script setup lang="ts">
 import {computed, onMounted, reactive, ref} from 'vue'
 import {useAppStore} from "@/src/stores/auth.ts";
-import {IRegisterUser} from "@/src/interface/IRegisterUser.ts";
 import {Button} from "@/src/components/ui/button";
 import {useForm} from 'vee-validate';
-
+import 'vue-sonner/style.css'
 import {FormControl, FormField, FormItem, FormLabel, FormMessage,} from '@/src/components/ui/form'
 import {
   Select,
@@ -171,6 +181,7 @@ import {
 import {Input} from "@/src/components/ui/input";
 import {registerSchema} from "@/src/form-valiate/validate.ts";
 import {ISchoolItem} from "@/src/interface/ISchool.ts";
+import {IRegisterUserRequest} from "@/src/stores/models/auth/request/IRegisterUserRequest.ts";
 
 const appStore = useAppStore();
 
@@ -178,8 +189,9 @@ const schoolFilter = ref('')
 const schools = ref<ISchoolItem[]>()
 
 
-const initialRegisterForm = reactive<IRegisterUser>({
+const initialRegisterForm = reactive<IRegisterUserRequest>({
   fullName: 'chinh nguyen duc',
+  userName: 'admin',
   email: 'chinhnguyenduc2000@gmail.com',
   phoneNumber: "0326550233",
   schoolName: 'PTIT',
@@ -189,28 +201,27 @@ const initialRegisterForm = reactive<IRegisterUser>({
 })
 
 
-const registerForm = useForm<IRegisterUser>({
+const registerForm = useForm<IRegisterUserRequest>({
   validationSchema: registerSchema,
   initialValues: initialRegisterForm,
 })
 onMounted(async() => {
   await appStore.getSchools();
   schools.value = appStore.allSchools
-  console.log("in compo",schools.value)
 })
 
 const onRegister = registerForm.handleSubmit(
     async (values) => {
       console.log(values)
 
-      // await appStore.register(values)
+      await appStore.register(values)
     }
 )
-const schoolFilterComputed:[ISchoolItem] = computed(() => {
+const schoolFilterComputed = computed(() => {
   if (!schoolFilter.value) {
     return schools.value
   }
-  return schools.value.filter(e => e.label.toLowerCase().includes(schoolFilter.value.toLowerCase()))
+  return schools.value.filter(e => e.schoolName?.toLowerCase().includes(schoolFilter.value.toLowerCase()))
 })
 const grades = [
   {value: '1', label: 'Năm 1'},
@@ -218,7 +229,4 @@ const grades = [
   {value: '3', label: 'Năm 3'},
   {value: '4', label: 'Năm 4'},
 ]
-
 </script>
-
-<style scoped></style>

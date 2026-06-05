@@ -2,11 +2,12 @@ import {httpClient} from "@/src/configs/httpClientConfig.ts";
 import {IDashboardData} from "@/src/interface/IDashboardData.ts";
 import {IUser} from "@/src/interface/IUser.ts";
 import {IGoogleLoginPayload} from "@/src/interface/IGoogleLoginPayload.ts";
-import {IGoogleLoginResponse} from "@/src/interface/IGoogleLoginResponse.ts";
-import {ILeaderboardItem, videosData} from "@/src/data/Dashboard.ts";
+import {GoogleLoginResponse,} from "@/src/interface/GoogleLoginResponse.ts";
+import {ILeaderboardItem} from "@/src/data/Dashboard.ts";
 import {ApiResponse} from "@/src/interface/ApiResponse.ts";
-import {IRegisterUser} from "@/src/interface/IRegisterUser.ts";
 import {ISchoolItem} from "@/src/interface/ISchool.ts";
+import {IRegisterUserResponse} from "@/src/stores/models/auth/response/IRegisterUserResponse.ts";
+import {IRegisterUserRequest} from "@/src/stores/models/auth/request/IRegisterUserRequest.ts";
 
 // Automatically add JWT system token to the request headers when present
 httpClient.interceptors.request.use((config) => {
@@ -30,7 +31,8 @@ export const api = {
         googleClientId: string | null
     }>('/api/users/auth-config').then(res => res.data),
     getCurrentUser: () => httpClient.post('/api/users/current-user',{}).then(res => res.data),
-    register: (request: IRegisterUser) => httpClient.post('/api/users/register',request).then(res => res.data),
+    register: (request: IRegisterUserRequest) => httpClient.post< ApiResponse<IRegisterUserResponse>>('/api/users/register',request).then(res => res.data),
+
     getUsers: () => httpClient.get<IUser[]>('/api/users').then(res => res.data),
     getUserById: (id: string) => httpClient.get<IUser>(`/api/users/${id}`).then(res => res.data),
     createUser: (data: Partial<IUser>) => httpClient.post<IUser>('/api/users', data).then(res => res.data),
@@ -40,7 +42,7 @@ export const api = {
         message: string
     }>(`/api/users/${id}`).then(res => res.data),
     googleLogin: (payload: IGoogleLoginPayload) =>
-        httpClient.post<ApiResponse<IGoogleLoginResponse>>('/api/users/google-login', payload)
+        httpClient.post<ApiResponse<GoogleLoginResponse>>('/api/users/google-login', payload)
         .then(res => res.data),
 
     getSchools: () => httpClient.post<ApiResponse<ISchoolItem[]>>('/api/schools',{}).then(res => res.data),

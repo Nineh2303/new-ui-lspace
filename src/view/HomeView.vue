@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import {computed, onMounted, ref} from 'vue';
-import TopHeader from '../components/TopHeader.vue';
+import {computed, ref} from 'vue';
 import LeftSidebar from '../components/LeftSidebar.vue';
 import DashboardCards from '../components/DashboardCards.vue';
 import FilterSidebar from '../components/FilterSidebar.vue';
 import VideoGrid from '../components/VideoGrid.vue';
-import GlobalLoading from "@/src/components/GlobalLoading.vue";
 import {useAppStore} from "@/src/stores/auth.ts";
 import {IVideoItem, videosData} from "@/src/data/Dashboard.ts";
 
@@ -26,12 +24,12 @@ const filteredVideos = computed(() => {
   return videos.value.filter(v => v.category === currentCategory.value || (currentCategory.value === 'Listening' && v.category === 'Luyện nghe') || (currentCategory.value === 'Reading' && v.category === 'Luyện đọc') || (currentCategory.value === 'Writing' && v.category === 'Ngữ pháp') || (currentCategory.value === 'Speaking' && v.category === 'Luyện nói'));
 });
 
-onMounted(async () => {
-  const authPayload = localStorage.getItem('access_token');
-  if (authPayload) {
-    appStore.getUser();
-  }
-})
+// onMounted(async () => {
+//   const authPayload = localStorage.getItem('access_token');
+//   if (authPayload) {
+//     appStore.getUser();
+//   }
+// })
 </script>
 
 <template>
@@ -93,7 +91,6 @@ onMounted(async () => {
       </main>
     </div>
   </div>
-  <GlobalLoading/>
 </template>
 
 <style>
