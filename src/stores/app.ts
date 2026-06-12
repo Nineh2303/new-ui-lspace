@@ -15,6 +15,8 @@ export interface AppStateProps {
     schoolGrade: string;
     isLoading: boolean;
     schools: ISchoolItem[]
+    isModal: boolean;
+    modalMessage: string
     isAuthenticated: boolean;
 
 }
@@ -28,6 +30,8 @@ export const useAppStore = defineStore('appStore', {
         schoolGrade: null,
         schools: [],
         isLoading: false,
+        isModal: false,
+        modalMessage: "",
         isAuthenticated: false
     }),
     getters: {
@@ -47,15 +51,22 @@ export const useAppStore = defineStore('appStore', {
                     this.schoolGrade = responseData?.schoolGrade;
                     // this.isAuthenticated = true;
                     localStorage.setItem('access_token', encryptPayload(responseData?.accessToken))
-                    toast.success("Đăng ký thành công")
+                    this.modalMessage("Đăng ký thành công!!")
+                    this.isModal = true;
                 }
             } catch (error) {
                 console.log(error.response.data)
-                toast.error(error.response.data.error.message);
+                this.modalMessage=  error.response.data.error.message
+                this.isModal = true;
 
             } finally {
                 this.isLoading = false;
             }
+        },
+
+        closeModal() {
+            this.isModal = false;
+            this.modalMessage = "";
         },
 
         // async login(request: IGoogleLoginPayload) {

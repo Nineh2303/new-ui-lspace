@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {ref, onUnmounted,onMounted} from "vue";
 import { Flame, Star } from 'lucide-vue-next';
-import {useAppStore} from "@/src/stores/auth.ts";
+import {useAppStore} from "@/src/stores/app.ts";
 const appStore = useAppStore();
 
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import {useAppStore} from "@/src/stores/auth.ts";
+import {useAppStore} from "@/src/stores/app.ts";
 
 const appStore = useAppStore();
 </script>

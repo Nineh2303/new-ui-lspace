@@ -1,8 +1,8 @@
 <template>
-  <div class="w-full max-w-7xl bg-white rounded-2xl shadow-xl overflow-hidden flex items-center justify-between">
+  <div class="w-full max-w-7xl bg-white dark:bg-slate-900 rounded-2xl shadow-xl overflow-hidden flex items-center justify-between">
     <div class="grid grid-cols-1 lg:grid-cols-2">
       <!-- Banner -->
-      <div class="hidden lg:flex items-center justify-center bg-gray-50 p-8">
+      <div class="hidden lg:flex items-center justify-center bg-gray-50 dark:bg-slate-800 p-8">
         <img
             src="../../assets/IMG_0931.png"
             alt="Register Banner"
@@ -23,7 +23,7 @@
                 v-model="loginForm.email"
                 type="email"
                 placeholder="Email"
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                class="w-full px-4 py-3 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
             />
 
@@ -32,7 +32,7 @@
                 type="password"
                 placeholder="Tạo mật khẩu"
                 autocomplete="new-password"
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                class="w-full px-4 py-3 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
             />
 
@@ -45,7 +45,7 @@
           </form>
 
           <p
-              class="text-center text-sm sm:text-base text-gray-600 mt-6"
+              class="text-center text-sm sm:text-base text-gray-600 dark:text-gray-400 mt-6"
           >
             Nếu bạn chưa có tài khoản
 

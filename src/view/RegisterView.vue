@@ -1,9 +1,9 @@
 <template>
   <div class="w-full h-screen flex justify-center pt-20">
-    <div class="w-[80%] bg-white rounded-2xl shadow-xl overflow-hidden flex items-center justify-between">
+    <div class="w-[80%] bg-white dark:bg-slate-900 rounded-2xl shadow-xl overflow-hidden flex items-center justify-between">
       <div class="w-full grid grid-cols-1 lg:grid-cols-2">
         <!-- Banner -->
-        <div class="hidden lg:flex items-center justify-center bg-gray-50 p-8">
+        <div class="hidden lg:flex items-center justify-center bg-gray-50 dark:bg-slate-800 p-8">
           <img
               src="../assets/IMG_0931.png"
               alt="Register Banner"
@@ -14,7 +14,7 @@
         <!-- Form -->
         <div class="p-6 sm:p-8 lg:p-12">
           <div class="w-full flex flex-col items-center mb-8 space-y-2">
-            <h1 class="text-xl sm:text-2xl font-bold text-center text-gray-900">
+            <h1 class="text-xl sm:text-2xl font-bold text-center text-gray-900 dark:text-slate-100">
               Hành trình chinh phục chứng chỉ
             </h1>
 
@@ -148,7 +148,7 @@
                 class="w-full py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition font-semibold">Đăng ký
             </Button>
           </form>
-          <p class="text-center text-sm sm:text-base text-gray-600 mt-6">
+          <p class="text-center text-sm sm:text-base text-gray-600 dark:text-gray-400 mt-6">
             Nếu bạn đã có tài khoản
 
             <router-link
@@ -166,7 +166,7 @@
 
 <script setup lang="ts">
 import {computed, onMounted, reactive, ref} from 'vue'
-import {useAppStore} from "@/src/stores/auth.ts";
+import {useAppStore} from "@/src/stores/app.ts";
 import {Button} from "@/src/components/ui/button";
 import {useForm} from 'vee-validate';
 import 'vue-sonner/style.css'

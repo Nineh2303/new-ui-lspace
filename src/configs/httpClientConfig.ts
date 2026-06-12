@@ -1,5 +1,5 @@
 import axios from "axios"
-import {decryptPayload, encryptPayload} from "@/src/services/crypto.ts";
+import { decryptPayload, encryptPayload } from "@/src/services/crypto.ts";
 
 export const httpClient = axios.create({
     baseURL: import.meta.env.VITE_SERVER_URL,
@@ -18,7 +18,7 @@ httpClient.interceptors.request.use((config) => {
     if (config.data && !(config.data instanceof FormData)) {
         const encryptedData = encryptPayload(config.data);
         if (encryptedData) {
-            config.data = {data: encryptedData};
+            config.data = { data: encryptedData };
         }
     }
     return config;
@@ -29,7 +29,7 @@ httpClient.interceptors.response.use(
         if (response.data) {
             const decrypted = decryptPayload(response.data.data);
             if (decrypted) {
-                response.data =  decrypted;
+                response.data = decrypted;
             }
         }
         console.log(`Response from mid ${response.config.url}:`, response.data);

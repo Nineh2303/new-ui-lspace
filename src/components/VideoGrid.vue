@@ -23,7 +23,7 @@ const closeVideo = () => {
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 content-start">
       <div v-for="video in videos" :key="video.id"
            @click="openVideo(video)"
-           class="bg-white rounded-2xl border border-slate-200/60 shadow-sm relative flex flex-col hover:shadow-xl hover:-translate-y-1 hover:border-blue-300 transition-all cursor-pointer group overflow-hidden">
+           class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/60 dark:border-slate-700/50 shadow-sm relative flex flex-col hover:shadow-xl hover:-translate-y-1 hover:border-blue-300 dark:hover:border-blue-600 transition-all cursor-pointer group overflow-hidden">
 
         <!-- Thumbnail Section -->
         <div class="relative w-full aspect-video bg-slate-100 overflow-hidden">
@@ -48,16 +48,16 @@ const closeVideo = () => {
         </div>
 
         <!-- Card Body -->
-        <div class="p-5 flex-1 flex flex-col bg-white">
-          <h3 class="font-bold text-[15px] text-slate-800 leading-snug line-clamp-2 min-h-[44px] group-hover:text-blue-600 transition-colors">{{ video.title }}</h3>
+        <div class="p-5 flex-1 flex flex-col bg-white dark:bg-slate-900">
+          <h3 class="font-bold text-[15px] text-slate-800 dark:text-slate-100 leading-snug line-clamp-2 min-h-[44px] group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{{ video.title }}</h3>
 
           <!-- Footer Stats -->
-          <div class="flex items-center justify-between mt-auto pt-4 border-t border-slate-100 mt-4">
-            <div class="flex items-center gap-2 text-slate-500 text-xs font-medium">
+          <div class="flex items-center justify-between mt-auto pt-4 border-t border-slate-100 dark:border-slate-700/50 mt-4">
+            <div class="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-xs font-medium">
               <User class="w-3.5 h-3.5" />
               <span>{{ video.instructor }}</span>
             </div>
-            <div class="flex items-center gap-1.5 text-slate-400 text-xs font-semibold">
+            <div class="flex items-center gap-1.5 text-slate-400 dark:text-slate-500 text-xs font-semibold">
               <Eye class="w-3.5 h-3.5" />
               <span>{{ video.views }}</span>
             </div>
