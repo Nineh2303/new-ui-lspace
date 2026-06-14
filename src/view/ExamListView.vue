@@ -4,7 +4,6 @@ import { useExamStore } from '@/src/stores/examStore'
 import ExamCard from '@/src/components/ExamCard.vue'
 import UiInput from '@/src/components/ui/exam/input.vue'
 import { Search } from 'lucide-vue-next'
-
 const examStore = useExamStore()
 const search = ref('')
 
@@ -14,7 +13,7 @@ const filtered = computed(() => {
   if (!search.value.trim()) return examStore.exams
   const q = search.value.toLowerCase()
   return examStore.exams.filter((e) =>
-    e.title.toLowerCase().includes(q) || (e.description ?? '').toLowerCase().includes(q)
+    e.title.toLowerCase().includes(q)
   )
 })
 </script>
@@ -23,7 +22,6 @@ const filtered = computed(() => {
   <div class="container mx-auto max-w-5xl px-4 py-10">
       <div class="mb-8">
         <h1 class="text-3xl font-bold tracking-tight mb-2">Danh sách bài thi</h1>
-        <p class="text-muted-foreground">Duyệt và làm các bài thi tiếng Anh.</p>
       </div>
 
       <div class="relative mb-6 max-w-sm">

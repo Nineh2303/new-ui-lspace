@@ -6,7 +6,7 @@ const appStore = useAppStore();
 </script>
 
 <template>
-  <div class="fixed inset-0 z-[100] bg-white/30 backdrop-blur-sm flex items-center justify-center"
+  <div class="fixed inset-0 z-[100] bg-white/30 dark:bg-slate-950/50 backdrop-blur-sm flex items-center justify-center"
   :class="appStore.isLoading == false ? 'hidden' : ''">
     <div class="flex flex-col items-center">
       <div class="relative w-16 h-16 mb-4 animate-bounce">

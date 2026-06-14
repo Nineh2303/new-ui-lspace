@@ -2,11 +2,22 @@
 import { ref, computed, onMounted, onUnmounted } from "vue"
 import { Clock } from "lucide-vue-next"
 
-const props = defineProps<{ minutes: number }>()
+const props = defineProps<{ minutes: number; startedAt?: string }>()
 const emit = defineEmits<{ "time-up": [] }>()
 
-const remaining = ref(props.minutes * 60)
+const remaining = ref(0)
 let interval: ReturnType<typeof setInterval>
+
+function calcRemaining() {
+  if (props.startedAt) {
+    const start = new Date(props.startedAt).getTime()
+    const limitMs = props.minutes * 60 * 1000
+    const now = Date.now()
+    const end = start + limitMs
+    return Math.max(0, Math.floor((end - now) / 1000))
+  }
+  return props.minutes * 60
+}
 
 const formatted = computed(() => {
   const m = Math.floor(remaining.value / 60)
@@ -18,10 +29,15 @@ const isWarning = computed(() => remaining.value <= 300 && remaining.value > 60)
 const isDanger = computed(() => remaining.value <= 60)
 
 onMounted(() => {
+  remaining.value = calcRemaining()
+  if (remaining.value <= 0) {
+    emit("time-up")
+    return
+  }
+
   interval = setInterval(() => {
-    if (remaining.value > 0) {
-      remaining.value--
-    } else {
+    remaining.value = calcRemaining()
+    if (remaining.value <= 0) {
       clearInterval(interval)
       emit("time-up")
     }

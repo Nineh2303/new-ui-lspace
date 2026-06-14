@@ -1,9 +1,7 @@
 <template>
   <header
-      class="fixed w-full h-16 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700/60 flex items-center shrink-0 shadow-sm z-50 px-4 md:px-6 relative justify-between transition-colors duration-200">
-    <!-- Left Section: Toggle & Logo -->
+      class="w-full h-16 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700/60 flex items-center shrink-0 shadow-sm z-50 px-4 md:px-6 justify-between transition-colors duration-200">
     <div class="flex items-center gap-3 shrink-0">
-      <!-- Hamburger Toggle -->
       <button @click="$emit('toggle-sidebar')"
               v-if="appStore.isAuthenticated"
               class="p-1.5 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors">
@@ -30,29 +28,6 @@
       </router-link>
     </div>
 
-    <!-- Center Nav Links -->
-    <nav class="hidden lg:flex justify-center items-center gap-1">
-      <template v-for="(link, idx) in topNavLinks" :key="idx">
-        <router-link
-          v-if="link.to"
-          :to="link.to"
-          class="px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors flex items-center gap-1"
-          :class="route.path.startsWith(link.to)
-            ? 'bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400'
-            : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800'"
-        >
-          {{ link.label }}
-        </router-link>
-        <a
-          v-else
-          :href="link.href"
-          class="px-3 py-1.5 rounded-lg text-sm font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors flex items-center gap-1"
-        >
-          {{ link.label }}
-          <ChevronRight v-if="link.hasDropdown" class="w-4 h-4 opacity-50 rotate-90"/>
-        </a>
-      </template>
-    </nav>
 
     <!-- Right Action Area -->
     <div class="shrink-0 flex items-center gap-2 md:gap-3 h-full">
@@ -99,15 +74,12 @@
 </template>
 
 <script setup lang="ts">
-import { Bell, ChevronRight, Menu, Moon, Sun, User } from 'lucide-vue-next';
-import { topNavLinks } from '../data/Header';
+import { Bell, Menu, Moon, Sun, User } from 'lucide-vue-next';
 import { useAppStore } from '../stores/app.ts';
 import { useThemeStore } from '../stores/themeStore';
-import { useRoute } from 'vue-router';
 
 const appStore = useAppStore();
 const themeStore = useThemeStore();
-const route = useRoute();
 
 function toggleTheme() {
   themeStore.setTheme(themeStore.theme === 'dark' ? 'light' : 'dark')

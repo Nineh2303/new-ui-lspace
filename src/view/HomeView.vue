@@ -20,31 +20,20 @@ const filteredVideos = computed(() => {
   return videos.value.filter(v => v.category === currentCategory.value || (currentCategory.value === 'Listening' && v.category === 'Luyện nghe') || (currentCategory.value === 'Reading' && v.category === 'Luyện đọc') || (currentCategory.value === 'Writing' && v.category === 'Ngữ pháp') || (currentCategory.value === 'Speaking' && v.category === 'Luyện nói'));
 });
 
-// onMounted(async () => {
-//   const authPayload = localStorage.getItem('access_token');
-//   if (authPayload) {
-//     appStore.getUser();
-//   }
-// })
 </script>
 
 <template>
-  <div class="flex flex-col h-full bg-[#F8FAFC] dark:bg-slate-950 font-sans text-slate-800 dark:text-slate-100 overflow-hidden w-full h-full">
-    <div class="flex flex-col flex-1 overflow-hidden">
+  <div class="bg-[#F8FAFC]  dark:bg-slate-950 font-sans text-slate-800 dark:text-slate-100 w-full">
+    <div class="flex flex-col flex-1">
 
-      <main class="flex-1 overflow-y-auto md:p-8 custom-scrollbar relative transition-all duration-300">
+      <div class="flex-1 md:p-8">
 
-        <div class="w-full max-w-full px-2 md:px-4 mx-auto relative z-10">
+        <div class="w-[80%] max-w-full px-2 md:px-4 mx-auto relative z-10">
 
           <div>
             <DashboardCards v-if="appStore.isAuthenticated"/>
           </div>
-
           <div class="flex flex-col lg:flex-row gap-6 mt-6">
-            <FilterSidebar
-                :currentCategory="currentCategory"
-                @update:currentCategory="currentCategory = $event"
-            />
 
             <div v-if="appStore.isAuthenticated" class="flex-1">
               <VideoGrid :videos="filteredVideos"/>
@@ -66,7 +55,7 @@ const filteredVideos = computed(() => {
           </div>
 
         </div>
-      </main>
+      </div>
     </div>
   </div>
 </template>

@@ -4,5 +4,6 @@ export interface IRegisterUserResponse {
     phoneNumber: string;
     schoolName: string;
     schoolGrade: string;
+    role: string;
     accessToken: string;
 }

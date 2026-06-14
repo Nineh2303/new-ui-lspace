@@ -6,14 +6,15 @@ export interface QuestionOption {
 }
 
 export interface IExam {
-  id: string
-  title: string
-  description: string | null
-  time_limit_minutes: number | null
-  passing_score: number
-  is_published: boolean
-  created_at: string
-  question_count?: number
+  id: string;
+  title: string;
+  description: string | null;
+  time_limit_minutes: number | null;
+  passing_score: number;
+  display_question_count: number | null;
+  is_published: boolean;
+  created_at: string;
+  question_count: number;
 }
 
 export interface IQuestion {
@@ -31,14 +32,14 @@ export interface IQuestion {
 // ─── Attempt ─────────────────────────────────────────────────────────────────
 
 export interface IExamAttempt {
-  id: string
-  exam_id: string
-  student_name: string
-  student_email: string
-  started_at: string
-  submitted_at: string | null
-  score: number | null
-  passed: boolean | null
+  id: string;
+  exam_id: string;
+  user_id: string;
+  started_at: string;
+  submitted_at: string | null;
+  score: number | null;
+  passed: boolean | null;
+  questions?: IQuestion[];
 }
 
 export interface IAttemptAnswer {

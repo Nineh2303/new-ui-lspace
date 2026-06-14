@@ -16,13 +16,13 @@
             <p class="text-xl sm:text-3xl text-blue-500 font-bold  uppercase" > Cày thôi. Sắp xong rồi !  </p>
           </div>
           <form
-              @submit.prevent="login"
+              @submit.prevent="loginAction"
               class="space-y-4 w-full"
           >
             <input
-                v-model="loginForm.email"
-                type="email"
-                placeholder="Email"
+                v-model="loginForm.userName"
+                type="text"
+                placeholder="Tên đăng nhập"
                 class="w-full px-4 py-3 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
             />
@@ -30,7 +30,7 @@
             <input
                 v-model="loginForm.password"
                 type="password"
-                placeholder="Tạo mật khẩu"
+                placeholder="Mật khẩu"
                 autocomplete="new-password"
                 class="w-full px-4 py-3 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
@@ -40,7 +40,7 @@
 
             <Button class="w-full py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition font-semibold"
                 type="submit">
-              Đăng ký
+              Đăng nhập
             </Button>
           </form>
 

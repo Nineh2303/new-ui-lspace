@@ -9,12 +9,27 @@ const appStore = useAppStore()
 </script>
 
 <template>
-  <div class="min-h-screen bg-[#F8FAFC] dark:bg-slate-950 transition-colors duration-200">
+
+  <div class="h-screen flex flex-col overflow-hidden bg-[#F8FAFC] dark:bg-slate-950">
     <TopHeader @toggle-sidebar="isSidebarOpen = !isSidebarOpen" />
-    <LeftSidebar :isOpen="isSidebarOpen" v-if="appStore.isAuthenticated" />
-    <!-- pt-16: tránh bị TopHeader fixed (h-16) che; lg:pl-20: tránh bị collapsed LeftSidebar (w-20) che -->
-    <div class="pt-16 transition-all duration-300" :class="appStore.isAuthenticated ? 'lg:pl-20' : ''">
-      <slot />
+    <div class="flex flex-1 overflow-hidden relative">
+      <LeftSidebar :isOpen="isSidebarOpen" v-if="appStore.isAuthenticated" />
+      <main class="flex-1 overflow-y-auto bg-[#F8FAFC] dark:bg-slate-950">
+        <slot />
+      </main>
     </div>
   </div>
 </template>
+
+<style>
+main::-webkit-scrollbar {
+  width: 5px;
+}
+main::-webkit-scrollbar-track {
+  background: transparent;
+}
+main::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+  border-radius: 20px;
+}
+</style>

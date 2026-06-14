@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-screen flex justify-center pt-20">
+  <div class="w-full flex justify-center py-10">
     <div class="w-[80%] bg-white dark:bg-slate-900 rounded-2xl shadow-xl overflow-hidden flex items-center justify-between">
       <div class="w-full grid grid-cols-1 lg:grid-cols-2">
         <!-- Banner -->
@@ -29,7 +29,7 @@
                 <FormLabel>Họ và tên</FormLabel>
                 <FormControl>
                   <Input placeholder="Nhập họ và tên " v-bind="componentField"
-                         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                         class="w-full px-4 py-3 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
                 </FormControl>
                 <FormMessage/>
               </FormItem>
@@ -75,10 +75,10 @@
                   >
                     <FormControl>
                       <SelectTrigger class="w-full">
-                        <SelectValue placeholder="Chọn trường của bạn" class="text-black"/>
+                        <SelectValue placeholder="Chọn trường của bạn" class="text-slate-800 dark:text-slate-100"/>
                       </SelectTrigger>
                       <SelectContent class="w-full h-[300px]">
-                        <input type="text" class="w-full bt-2 h-[40px] border-2 px-[15px]" v-model="schoolFilter">
+                        <input type="text" class="w-full bt-2 h-[40px] border-2 px-[15px] bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 border-slate-200 dark:border-slate-600" v-model="schoolFilter">
                         <SelectItem
                             v-for="school in schoolFilterComputed"
                             :key="school.schoolCode"
@@ -107,7 +107,7 @@
                 >
                   <FormControl>
                     <SelectTrigger class="w-full">
-                      <SelectValue placeholder="Chọn năm học" class="text-black"/>
+                      <SelectValue placeholder="Chọn năm học" class="text-slate-800 dark:text-slate-100"/>
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem
@@ -189,17 +189,27 @@ const schoolFilter = ref('')
 const schools = ref<ISchoolItem[]>()
 
 
-const initialRegisterForm = reactive<IRegisterUserRequest>({
-  fullName: 'chinh nguyen duc',
-  userName: 'admin',
-  email: 'chinhnguyenduc2000@gmail.com',
-  phoneNumber: "0326550233",
-  schoolName: 'PTIT',
-  schoolGrade: '',
-  password: '000000',
-  repeatPassword: '000000'
-})
+// const initialRegisterForm = reactive<IRegisterUserRequest>({
+//   fullName: 'chinh nguyen duc',
+//   userName: 'admin',
+//   email: 'chinhnguyenduc2000@gmail.com',
+//   phoneNumber: "0326550233",
+//   schoolName: 'PTIT',
+//   schoolGrade: '',
+//   password: '000000',
+//   repeatPassword: '000000'
+// })
 
+const initialRegisterForm = reactive<IRegisterUserRequest>({
+  fullName: '',
+  userName: '',
+  email: '',
+  phoneNumber: "",
+  schoolName: '',
+  schoolGrade: '',
+  password: '',
+  repeatPassword: ''
+})
 
 const registerForm = useForm<IRegisterUserRequest>({
   validationSchema: registerSchema,

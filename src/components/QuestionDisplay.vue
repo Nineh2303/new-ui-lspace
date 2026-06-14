@@ -22,18 +22,18 @@ function select(val: string) {
         class="flex items-center gap-3 rounded-lg border p-3.5 text-left transition-all hover:bg-primary/5"
         :class="modelValue === opt.id
           ? 'border-primary bg-primary/5'
-          : 'border-slate-200'"
+          : 'border-slate-200 dark:border-slate-700'"
         @click="select(opt.id)"
       >
         <div
           class="flex size-7 shrink-0 items-center justify-center rounded-full border text-xs font-bold"
           :class="modelValue === opt.id
             ? 'border-primary bg-primary text-white'
-            : 'border-slate-300 text-slate-500'"
+            : 'border-slate-300 dark:border-slate-600 text-slate-500 dark:text-slate-400'"
         >
           {{ opt.id }}
         </div>
-        <span class="text-sm text-slate-700">{{ opt.text }}</span>
+        <span class="text-sm text-slate-700 dark:text-slate-200">{{ opt.text }}</span>
       </button>
     </div>
 

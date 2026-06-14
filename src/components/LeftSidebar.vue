@@ -10,11 +10,11 @@ defineProps<{
 
 <template>
   <aside
-    class="bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-700/60 flex flex-col overflow-y-auto overflow-x-hidden custom-scrollbar z-40 transition-all duration-300 fixed h-[calc(100vh-64px)] top-16 group shadow-lg lg:shadow-none"
+    class="bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-700/60 flex flex-col overflow-y-auto overflow-x-hidden custom-scrollbar z-40 transition-all duration-300 shrink-0 group"
     :class="[
       isOpen
-        ? 'translate-x-0 w-64'
-        : '-translate-x-full lg:translate-x-0 lg:w-20 hover:lg:w-64 hover:lg:shadow-lg'
+        ? 'w-64'
+        : 'w-0 lg:w-20 hover:lg:w-64 hover:lg:shadow-lg'
     ]"
   >
     <div class="w-64 pb-6 mt-4 flex flex-col justify-between flex-1">

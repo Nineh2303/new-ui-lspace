@@ -2,6 +2,7 @@
 import { ref, computed, onMounted } from "vue"
 import { useRoute, useRouter } from "vue-router"
 import { useAttemptStore } from "@/src/stores/attemptStore"
+import { useAppStore } from "@/src/stores/app.ts"
 import type { IAttemptResult } from "@/src/interface/IExam"
 import UiCard from "@/src/components/ui/exam/card.vue"
 import UiCardContent from "@/src/components/ui/exam/card-content.vue"
@@ -12,6 +13,7 @@ import { CheckCircle, XCircle, ChevronDown, ChevronUp, BookOpen } from "lucide-v
 const route = useRoute()
 const router = useRouter()
 const attemptStore = useAttemptStore()
+const appStore = useAppStore()
 
 const result = ref<IAttemptResult | null>(null)
 const expanded = ref<Set<string>>(new Set())
@@ -20,7 +22,8 @@ onMounted(async () => {
   result.value = await attemptStore.fetchResult(route.params.attemptId as string)
 })
 
-const pct = computed(() => result.value?.attempt.score ?? 0)
+const score = computed(() => result.value?.earned_points ?? 0)
+const totalPoints = computed(() => result.value?.total_points ?? 0)
 const passed = computed(() => result.value?.attempt.passed ?? false)
 
 function toggle(id: string) {
@@ -39,8 +42,9 @@ function typeLabel(t: string) {
         <!-- Score hero -->
         <div class="mb-8 rounded-2xl border p-8 text-center" :class="passed ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-800' : 'bg-red-50 dark:bg-red-950/40 border-red-200 dark:border-red-900'">
           <div class="text-6xl font-extrabold mb-2" :class="passed ? 'text-emerald-600' : 'text-red-500'">
-            {{ pct }}%
+            {{ score }}/{{ totalPoints }}
           </div>
+          <p class="text-lg text-slate-500 dark:text-slate-400 mb-1">điểm</p>
           <UiBadge :variant="passed ? 'success' : 'destructive'" class="mb-3 text-sm px-3 py-1">
             {{ passed ? "🎉 Đạt yêu cầu!" : "Chưa đạt" }}
           </UiBadge>
@@ -50,7 +54,7 @@ function typeLabel(t: string) {
             {{ result.answers.filter(a => !a.is_correct).length }} sai
           </p>
           <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">
-            Thí sinh: <strong class="text-slate-700 dark:text-slate-200">{{ result.attempt.student_name }}</strong>
+            Thí sinh: <strong class="text-slate-700 dark:text-slate-200">{{ appStore.fullName ?? appStore.given_name }}</strong>
           </p>
         </div>
 

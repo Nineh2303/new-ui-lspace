@@ -11,7 +11,6 @@ const mobileOpen = ref(false)
 const links = [
   { to: '/', label: 'Home' },
   { to: '/exams', label: 'Exams' },
-  { to: '/admin', label: 'Admin' },
 ]
 
 function toggleTheme() {

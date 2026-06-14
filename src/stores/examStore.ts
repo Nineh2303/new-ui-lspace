@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { api } from '@/src/services/api.ts'
+import { examApi } from '@/src/apis'
 import type { IExam, IQuestion } from '@/src/interface/IExam'
 import type { ICreateExamRequest, IUpdateExamRequest } from '@/src/stores/models/exam/request/IExamRequest.ts'
 import type { ICreateQuestionRequest, IUpdateQuestionRequest } from '@/src/stores/models/exam/request/IQuestionRequest.ts'
@@ -19,7 +19,7 @@ export const useExamStore = defineStore('exam', () => {
     loading.value = true
     error.value = null
     try {
-      const res = await api.getExams()
+      const res = await examApi.getExams()
       exams.value = res.data ?? []
     } catch (e: any) {
       error.value = e?.response?.data?.message ?? 'Không thể tải danh sách bài thi.'
@@ -33,7 +33,7 @@ export const useExamStore = defineStore('exam', () => {
     loading.value = true
     error.value = null
     try {
-      const res = await api.getAllExams()
+      const res = await examApi.getAllExams()
       exams.value = res.data ?? []
     } catch (e: any) {
       error.value = e?.response?.data?.message ?? 'Không thể tải danh sách bài thi.'
@@ -46,7 +46,7 @@ export const useExamStore = defineStore('exam', () => {
   async function fetchExam(id: string) {
     error.value = null
     try {
-      currentExam.value = await api.getExamById(id)
+      currentExam.value = await examApi.getExamById(id)
     } catch (e: any) {
       error.value = e?.response?.data?.message ?? 'Không thể tải bài thi.'
     }
@@ -56,7 +56,7 @@ export const useExamStore = defineStore('exam', () => {
   async function fetchQuestions(examId: string) {
     error.value = null
     try {
-      const res = await api.getExamQuestions(examId)
+      const res = await examApi.getExamQuestions(examId)
       currentQuestions.value = res.data ?? []
     } catch (e: any) {
       error.value = e?.response?.data?.message ?? 'Không thể tải câu hỏi.'
@@ -66,7 +66,7 @@ export const useExamStore = defineStore('exam', () => {
   /** Tạo bài thi mới */
   async function createExam(payload: ICreateExamRequest): Promise<IExam> {
     try {
-      const exam = await api.createExam(payload)
+      const exam = await examApi.createExam(payload)
       return exam
     } catch (e: any) {
       throw new Error(e?.response?.data?.message ?? 'Tạo bài thi thất bại.')
@@ -74,9 +74,9 @@ export const useExamStore = defineStore('exam', () => {
   }
 
   /** Cập nhật bài thi */
-  async function updateExam(id: string, payload: IUpdateExamRequest): Promise<void> {
+  async function updateExam(id: string, payload: Omit<IUpdateExamRequest, 'id'>): Promise<void> {
     try {
-      const updated = await api.updateExam(id, payload)
+      const updated = await examApi.updateExam(id, payload)
       // Cập nhật local state nếu đang xem bài thi đó
       if (currentExam.value?.id === id) currentExam.value = updated
       const idx = exams.value.findIndex(e => e.id === id)
@@ -89,7 +89,7 @@ export const useExamStore = defineStore('exam', () => {
   /** Xóa bài thi */
   async function deleteExam(id: string): Promise<void> {
     try {
-      await api.deleteExam(id)
+      await examApi.deleteExam(id)
       exams.value = exams.value.filter(e => e.id !== id)
     } catch (e: any) {
       throw new Error(e?.response?.data?.message ?? 'Xóa bài thi thất bại.')
@@ -101,7 +101,7 @@ export const useExamStore = defineStore('exam', () => {
   /** Thêm câu hỏi vào bài thi */
   async function createQuestion(examId: string, payload: ICreateQuestionRequest): Promise<void> {
     try {
-      const question = await api.createQuestion(examId, payload)
+      const question = await examApi.createQuestion(examId, payload)
       currentQuestions.value.push(question)
     } catch (e: any) {
       throw new Error(e?.response?.data?.message ?? 'Thêm câu hỏi thất bại.')
@@ -111,7 +111,7 @@ export const useExamStore = defineStore('exam', () => {
   /** Cập nhật câu hỏi */
   async function updateQuestion(examId: string, questionId: string, payload: IUpdateQuestionRequest): Promise<void> {
     try {
-      const updated = await api.updateQuestion(examId, questionId, payload)
+      const updated = await examApi.updateQuestion(examId, questionId, payload)
       const idx = currentQuestions.value.findIndex(q => q.id === questionId)
       if (idx !== -1) currentQuestions.value[idx] = updated
     } catch (e: any) {
@@ -122,7 +122,7 @@ export const useExamStore = defineStore('exam', () => {
   /** Xóa câu hỏi */
   async function deleteQuestion(examId: string, questionId: string): Promise<void> {
     try {
-      await api.deleteQuestion(examId, questionId)
+      await examApi.deleteQuestion(examId, questionId)
       currentQuestions.value = currentQuestions.value.filter(q => q.id !== questionId)
     } catch (e: any) {
       throw new Error(e?.response?.data?.message ?? 'Xóa câu hỏi thất bại.')

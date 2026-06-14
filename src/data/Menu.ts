@@ -1,4 +1,4 @@
-import { Home, Headphones, BookOpen, Edit3, Mic, Type, BookA, PenTool, CheckCircle, BarChart, Clock, BookMarked, Settings, FileText, ShieldCheck } from 'lucide-vue-next';
+import { Home, Headphones, BookOpen, Edit3, Mic, Type, BookA, PenTool, CheckCircle, BarChart, Clock, BookMarked, Settings, FileText, Video, Newspaper } from 'lucide-vue-next';
 import type { Component } from 'vue';
 
 export interface IMenuItem {
@@ -21,7 +21,15 @@ export const menuGroups: IMenuGroup[] = [
   {
     title: 'Tổng quan',
     items: [
-      { name: 'Trang chủ', icon: Home, isActive: true }
+      { name: 'Trang chủ', icon: Home, isActive: true, route: '/' }
+    ]
+  },
+  {
+    title: 'Khám phá',
+    items: [
+      { name: 'Video bài giảng', icon: Video, route: '/videos' },
+      { name: 'Bài viết', icon: Newspaper, route: '/articles' },
+      { name: 'Đề thi', icon: FileText, route: '/exams', badge: { text: 'MỚI', class: 'bg-[#E8F0FE] text-[#0033CC]' } },
     ]
   },
   {
@@ -31,7 +39,6 @@ export const menuGroups: IMenuGroup[] = [
       { name: 'Reading', icon: BookOpen },
       { name: 'Writing', icon: Edit3 },
       { name: 'Speaking', icon: Mic, badge: { text: 'AI', class: 'bg-[#E6F8ED] text-[#00B85E]' } },
-      { name: 'Đề thi', icon: FileText, route: '/exams', badge: { text: 'MỚI', class: 'bg-[#E8F0FE] text-[#0033CC]' } }
     ]
   },
   {
@@ -49,7 +56,6 @@ export const menuGroups: IMenuGroup[] = [
       { name: 'Kết quả học tập', icon: BarChart },
       { name: 'Lịch sử làm bài', icon: Clock },
       { name: 'Sổ tay', icon: BookMarked },
-      { name: 'Admin đề thi', icon: ShieldCheck, route: '/admin' },
       { name: 'Cài đặt', icon: Settings }
     ]
   }
