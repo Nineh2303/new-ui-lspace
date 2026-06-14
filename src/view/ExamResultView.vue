@@ -54,7 +54,7 @@ function typeLabel(t: string) {
             {{ result.answers.filter(a => !a.is_correct).length }} sai
           </p>
           <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">
-            Thí sinh: <strong class="text-slate-700 dark:text-slate-200">{{ appStore.fullName ?? appStore.given_name }}</strong>
+            Thí sinh: <strong class="text-slate-700 dark:text-slate-200">{{ appStore.fullName }}</strong>
           </p>
         </div>
 

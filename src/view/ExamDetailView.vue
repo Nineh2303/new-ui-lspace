@@ -214,7 +214,7 @@ async function startExam() {
                       <User class="size-6 text-primary" />
                     </div>
                     <div>
-                      <p class="font-semibold text-base text-slate-800 dark:text-slate-100">{{ appStore.fullName ?? appStore.given_name }}</p>
+                      <p class="font-semibold text-base text-slate-800 dark:text-slate-100">{{ appStore.fullName }}</p>
                       <p class="text-sm text-slate-500 dark:text-slate-400">{{ appStore.email }}</p>
                     </div>
                     <UiBadge variant="secondary" class="ml-auto">Đã xác thực</UiBadge>

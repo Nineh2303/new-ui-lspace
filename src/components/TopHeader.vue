@@ -50,12 +50,11 @@
         </button>
         <div class="flex items-center gap-3 cursor-pointer" @click="appStore.logout()">
           <div class="text-right hidden sm:block">
-            <div class="text-sm font-bold text-slate-800 dark:text-slate-100 leading-tight">Xin chào, {{ appStore.given_name }}</div>
+            <div class="text-sm font-bold text-slate-800 dark:text-slate-100 leading-tight">Xin chào, {{ appStore.fullName }}</div>
             <div class="text-xs font-semibold text-yellow-500">Thoát</div>
           </div>
           <div class="w-9 h-9 rounded-full overflow-hidden border border-blue-600/20 flex items-center justify-center text-blue-600 bg-blue-50 dark:bg-blue-950">
-            <img v-if="appStore.image" :src="appStore.image" alt="Avatar" class="w-full h-full object-cover"/>
-            <User v-else class="w-5 h-5"/>
+            <User class="w-5 h-5"/>
           </div>
         </div>
       </template>
